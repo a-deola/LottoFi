@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import {Script} from "forge-std/Script.sol";
+import {Script, console} from "forge-std/Script.sol";
 import {VRFCoordinatorV2_5Mock} from "@chainlink/contracts/src/v0.8/vrf/mocks/VRFCoordinatorV2_5Mock.sol";
 import {LinkToken} from "test/mocks/LinkToken.sol";
 
@@ -33,7 +33,6 @@ contract HelperConfig is CodeConstants, Script {
 
     constructor() {
         networkConfigs[ETH_SEPOLIA_CHAIN_ID] = getSepoliaEthConfig();
-        networkConfigs[BASE_SEPOLIA_CHAIN_ID] = getBaseEthConfig();
     }
 
     function getConfigsByChainId(
@@ -43,10 +42,9 @@ contract HelperConfig is CodeConstants, Script {
             return networkConfigs[chainId];
         } else if (chainId == LOCAL_CHAIN_ID) {
             return getOrCreateLocalNetworkConfig();
-        } else if (chainId == BASE_SEPOLIA_CHAIN_ID) {
-            return getBaseEthConfig();
         } else {
-            revert HelperConfig__InvalidChainId();
+            console.log(chainId);
+            return getBaseEthConfig();
         }
     }
 
