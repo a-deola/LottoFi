@@ -63,7 +63,7 @@ contract Raffle is VRFConsumerBaseV2Plus {
         s_raffleState = RaffleState.OPEN;
     }
 
-    function enterRaffle() external payable {
+    function enterRaffle() public payable {
         if (msg.value < i_entranceFee) {
             revert Raffle__NotEnoughEth();
         }
@@ -130,6 +130,14 @@ contract Raffle is VRFConsumerBaseV2Plus {
         if (!success) {
             revert Raffle__TransferFailed();
         }
+    }
+
+    fallback() external payable {
+        enterRaffle();
+    }
+
+    receive() external payable {
+        enterRaffle();
     }
 
     // Getter functions

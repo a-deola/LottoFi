@@ -11,6 +11,7 @@ abstract contract CodeConstants {
     int256 public MOCK_WEI_PER_UNIT_LINK = 4e15; // 1 LINK = 1e18 wei
     uint256 public constant ETH_SEPOLIA_CHAIN_ID = 11155111;
     uint256 public constant LOCAL_CHAIN_ID = 31337;
+    uint256 public constant BASE_SEPOLIA_CHAIN_ID = 84532;
 }
 
 contract HelperConfig is CodeConstants, Script {
@@ -32,6 +33,7 @@ contract HelperConfig is CodeConstants, Script {
 
     constructor() {
         networkConfigs[ETH_SEPOLIA_CHAIN_ID] = getSepoliaEthConfig();
+        networkConfigs[BASE_SEPOLIA_CHAIN_ID] = getBaseEthConfig();
     }
 
     function getConfigsByChainId(
@@ -41,6 +43,8 @@ contract HelperConfig is CodeConstants, Script {
             return networkConfigs[chainId];
         } else if (chainId == LOCAL_CHAIN_ID) {
             return getOrCreateLocalNetworkConfig();
+        } else if (chainId == BASE_SEPOLIA_CHAIN_ID) {
+            return getBaseEthConfig();
         } else {
             revert HelperConfig__InvalidChainId();
         }
@@ -60,6 +64,19 @@ contract HelperConfig is CodeConstants, Script {
                 callbackGasLimit: 500000,
                 subscriptionId: 8077277871026489633122495960566296373219686573829769965847333307962862119385,
                 link: 0x779877A7B0D9E8603169DdbD7836e478b4624789
+            });
+    }
+
+    function getBaseEthConfig() public pure returns (NetworkConfig memory) {
+        return
+            NetworkConfig({
+                entranceFee: 0.01 ether,
+                interval: 21600,
+                vrfCoordinator: 0x5C210eF41CD1a72de73bF76eC39637bB0d3d7BEE,
+                keyHash: 0x9e1344a1247c8a1785d0a4681a27152bffdb43666ae5bf7d14d24a5efd44bf71,
+                callbackGasLimit: 500000,
+                subscriptionId: 101057366694515715120086498357137805681934292330800884909872402274631241441062,
+                link: 0xE4aB69C077896252FAFBD49EFD26B5D171A32410
             });
     }
 
