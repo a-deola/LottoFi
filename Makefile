@@ -11,4 +11,4 @@ install:
 deploy-sepolia:
 	@forge script script/DeployRaffle.s.sol:DeployRaffle --rpc-url $(SEPOLIA_RPC_URL) --account metamask --broadcast --verify --etherscan-api-key $(ETHERSCAN_API_KEY) -- --vvvv
 deploy-base:
-	@forge script script/DeployRaffle.s.sol:DeployRaffle --rpc-url $(BASE_RPC_URL) --account metamask --broadcast --verify --etherscan-api-key $(BASESCAN_API_KEY) -- --vvvv
+	@forge script script/DeployRaffle.s.sol:DeployRaffle --rpc-url $(BASE_SEPOLIA_RPC_URL) --account metamask --broadcast --verify --etherscan-api-key $(BASESCAN_API_KEY) -- --vvvv

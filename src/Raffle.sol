@@ -72,8 +72,12 @@ contract Raffle is VRFConsumerBaseV2Plus {
         }
 
         // Enter the raffle
-        s_players.push(payable(msg.sender));
-        emit RaffleEntered(msg.sender);
+
+        uint256 numEntries = msg.value / i_entranceFee;
+        for (uint256 i = 0; i < numEntries; i++) {
+            s_players.push(payable(msg.sender));
+            emit RaffleEntered(msg.sender);
+        }
     }
 
     function checkUpkeep(

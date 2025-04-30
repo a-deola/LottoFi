@@ -33,6 +33,7 @@ contract HelperConfig is CodeConstants, Script {
 
     constructor() {
         networkConfigs[ETH_SEPOLIA_CHAIN_ID] = getSepoliaEthConfig();
+        networkConfigs[BASE_SEPOLIA_CHAIN_ID] = getBaseSepoliaConfig();
     }
 
     function getConfigsByChainId(
@@ -42,9 +43,6 @@ contract HelperConfig is CodeConstants, Script {
             return networkConfigs[chainId];
         } else if (chainId == LOCAL_CHAIN_ID) {
             return getOrCreateLocalNetworkConfig();
-        } else {
-            console.log(chainId);
-            return getBaseEthConfig();
         }
     }
 
@@ -65,15 +63,15 @@ contract HelperConfig is CodeConstants, Script {
             });
     }
 
-    function getBaseEthConfig() public pure returns (NetworkConfig memory) {
+    function getBaseSepoliaConfig() public pure returns (NetworkConfig memory) {
         return
             NetworkConfig({
                 entranceFee: 0.01 ether,
-                interval: 21600,
+                interval: 86400,
                 vrfCoordinator: 0x5C210eF41CD1a72de73bF76eC39637bB0d3d7BEE,
                 keyHash: 0x9e1344a1247c8a1785d0a4681a27152bffdb43666ae5bf7d14d24a5efd44bf71,
                 callbackGasLimit: 500000,
-                subscriptionId: 101057366694515715120086498357137805681934292330800884909872402274631241441062,
+                subscriptionId: 78099849685421842812684433850672202093014838367321483160016967235153823924373,
                 link: 0xE4aB69C077896252FAFBD49EFD26B5D171A32410
             });
     }
